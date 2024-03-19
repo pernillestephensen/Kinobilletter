@@ -5,82 +5,70 @@
     <title>DATA1700 - Oblig 2</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="/script.js" type="application/javascript" ></script>
+    <link rel ="stylesheet" href=" https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 </head>
 <body>
-<h1>Bestilling av kinobilletter</h1>
-<table>
-    <tr><td>
-        <label for="film">Velg film:</label>
-        <select id="film" class="required">
-            <option value="" disabled selected>Velg film her</option>
-            <option>Anyone But You</option>
-            <option>Bukkene Bruse på badeland</option>
-            <option>Dream Scenario</option>
-            <option>Konvoi</option>
-            <option>The Beekeeper</option>
-        </select>
-        <td>
-            <div id="feilvalg" style="color: red"></div>
-        </td>
-        </tr>
-</table>
 
-</br>
-<table>
-    <tr>
-        <td>Antall: </td>
-        <td><input type="number" id="antall" min="1" required style="width: 42px;"/></td>
-        <td id="feilantall" style="color: red"></td>
-    </tr>
-</table>
+<div class="container">
+        <div class="row">
+            <div class="col-md-5">
+                <h2 style="text-align: center">Bestilling av kinobilletter</h2>
+                <form class="form">
+                    <div class="form-group">
+                        <label for="film">Velg film:</label>
+                        <select id="film" class="form-control" required>
+                            <option value="" disabled selected>Velg film her</option>
+                            <option >Anyone But You</option>
+                            <option>Bukkene Bruse på badeland</option>
+                            <option>Dream Scenario</option>
+                            <option>Konvoi</option>
+                            <option>The Beekeeper</option>
+                        </select>
+                        <div id="feilvalg" style="color: red"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="antall">Antall:</label>
+                        <input type="number" class="form-control" id="antall" min="1" required style="width: 65px;"/>
+                        <div id="feilantall" style="color: red"></div>
+                    </div>
 
 
-</br>
-</br>
+                    <div class="form-group">
+                        <label for="fornavn">Fornavn:</label>
+                        <input type="text" class="form-control" id="fornavn" required>
+                        <div id="feilfornavn" style="color: red"></div>
+                    </div>
 
-<table id="personalia">
-    <tr>
-        <td>Fornavn: </td>
-        <td><input type="text" id="fornavn" required></td>
-        <td id="feilfornavn" style="color: red"></td>
-    </tr>
+                    <div class="form-group">
+                        <label for="etternavn">Etternavn:</label>
+                        <input type="text" class="form-control" id="etternavn" required>
+                        <div id="feiletternavn" style="color: red"></div>
+                    </div>
 
-    <tr>
-        <td>Etternavn: </td>
-        <td><input type="text" id="etternavn" required></td>
-        <td id="feiletternavn" style="color: red"></td>
-    </tr>
+                    <div class="form-group">
+                        <label for="telefonnummer">Telefonnummer:</label>
+                        <input type="text" class="form-control" id="telefonnummer" required>
+                        <div id="feiltelefonnummer" style="color: red"></div>
+                    </div>
 
-    <tr>
-        <td>Telefonnummer: </td>
-        <td><input type="text" id="telefonnummer" required></td>
-        <td id="feiltelefonnummer" style="color: red"></td>
-    </tr>
+                    <div class="form-group">
+                        <label for="email">E-mail:</label>
+                        <input type="email" class="form-control" id="email" required>
+                        <div id="feilemail" style="color: red"></div>
+                    </div>
+                </form>
 
+                <button class="btn btn-primary" onclick="validerValg(); validerAntall(); validerFornavn(); validerEtternavn();
+                    validerTelefonnummer(); validerEmail(); registrer();">Kjøp billett</button>
+            </div>
 
-    <tr>
-        <td>E-mail: </td>
-        <td><input type="email" id="email" required></td>
-        <td id="feilemail" style="color: red"></td>
-    </tr>
-</table>
-
-</br>
-
-<button onclick="validerValg(); validerAntall(); validerFornavn(); validerEtternavn();
-    validerTelefonnummer(); validerEmail(); registrer();">Kjøp billett</button>
-
-</br></br>
-
-<h2>Alle billetter</h2>
-
-<div id="billetter"></div>
-
-</br></br>
-
-<button onclick="slett();">Slett alle billettene</button>
-
-
-
+            <div class="col-md-7" style="text-align: center">
+                <h2>Alle billetter</h2>
+                <div id="billetter" class="table-responsive"></div>
+                <button class="btn btn-danger" onclick="slett();">Slett alle billettene</button>
+            </div>
+        </div>
+</div>
 </body>
 </html>

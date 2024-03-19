@@ -108,7 +108,7 @@ function hentAlle(){
 
 
 function formaterData(billett) {
-   let ut = "<table><tr><th>Film</th><th>Antall</th><th>Fornavn</th>" +
+   let ut = "<table class='table table-striped'><tr><th>Film</th><th>Antall</th><th>Fornavn</th>" +
         "<th>Etternavn</th><th>Telefon</th><th>E-mail</th></tr>";
     for (const b of billett) {
         ut += "<tr><td>" + b.film + "</td><td>" + b.antall + "</td><td>" + b.fornavn + "</td>" +
