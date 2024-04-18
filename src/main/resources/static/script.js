@@ -1,4 +1,17 @@
+$(document).ready(function(){
+$("#kjopBillett").click(function (){
+    validerValg();
+    validerAntall();
+    validerFornavn();
+    validerEtternavn();
+    validerTelefonnummer();
+    validerEmail();
 
+    if(validerValg() && validerAntall() && validerFornavn() && validerEtternavn() && validerTelefonnummer() && validerEmail()){
+        registrer();
+    }
+})
+});
 function validerValg() {
     const selectElement = document.getElementById("film");
     const feilmeldingElement = $("#feilvalg");
@@ -22,6 +35,7 @@ function validerInput(inputId, feilmeldingId, feilmeldingTekst) {
         feilmeldingElement.html("");
         return true;
     }
+
 }
 
 
@@ -75,18 +89,17 @@ function validerEmail() {
 }
 
 function registrer(){
-
-    if(validerValg() && validerAntall() && validerFornavn() && validerEtternavn() && validerTelefonnummer() && validerEmail()){
         const billett = {
-            film : $("#film").val(),
-            antall : $("#antall").val(),
-            fornavn : $("#fornavn").val(),
-            etternavn : $("#etternavn").val(),
-            telefonnummer : $("#telefonnummer").val(),
-            email : $("#email").val(),
-        };
+            film: $("#film").val(),
+            antall: $("#antall").val(),
+            fornavn: $("#fornavn").val(),
+            etternavn: $("#etternavn").val(),
+            telefonnummer: $("#telefonnummer").val(),
+            email: $("#email").val()}
 
-        $.post("/lagre", billett, function(){
+
+
+        $.post("/lagre", billett, function(){ //function() er hentAlle()-funksjonen
             hentAlle();
         });
 
@@ -96,7 +109,7 @@ function registrer(){
         $("#etternavn").val("");
         $("#telefonnummer").val("");
         $("#email").val("");
-    }
+
 }
 
 function hentAlle(){

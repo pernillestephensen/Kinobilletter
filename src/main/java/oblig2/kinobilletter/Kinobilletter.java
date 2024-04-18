@@ -17,6 +17,7 @@ public class Kinobilletter {
             this.email = email;
         }
 
+
         public String getFilm() {
             return film;
         }
