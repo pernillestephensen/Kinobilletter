@@ -24,6 +24,17 @@ import java.util.List;
             return kinobillettRegister;
         }
 
+        @GetMapping("/hentFilmer")
+        public List<Filmer> hentFilmer(){
+         List<Filmer> filmer = new ArrayList<>();
+        filmer.add(new Filmer("Anyone But You"));
+        filmer.add(new Filmer("Bukkene Bruse på badeland"));
+        filmer.add(new Filmer("Dream Scenario"));
+        filmer.add(new Filmer("Konvoi"));
+        filmer.add(new Filmer("The Beekeeper"));
+        return  filmer;
+        }
+
         @GetMapping("/slett")
         public void slett(){
             kinobillettRegister.clear();

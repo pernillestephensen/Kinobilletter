@@ -1,29 +1,34 @@
 $(document).ready(function(){
+    hentFilmene();
 $("#kjopBillett").click(function (){
-    validerValg();
     validerAntall();
     validerFornavn();
     validerEtternavn();
     validerTelefonnummer();
     validerEmail();
 
-    if(validerValg() && validerAntall() && validerFornavn() && validerEtternavn() && validerTelefonnummer() && validerEmail()){
+    if(validerAntall() && validerFornavn() && validerEtternavn() && validerTelefonnummer() && validerEmail()){
         registrer();
     }
 })
 });
-function validerValg() {
-    const selectElement = document.getElementById("film");
-    const feilmeldingElement = $("#feilvalg");
 
-    if (selectElement.value == "") {
-        feilmeldingElement.html("Vennligst velg en film");
-        return false;
-    } else {
-        feilmeldingElement.html("");
-        return true;
-    }
+function hentFilmene(){
+    $.get("/hentFilmer", function (filmer){
+        formaterFilmer(filmer);
+    })
 }
+
+function formaterFilmer(filmer){
+    let ut = "<select id='valgtFilm' class='form-control'>";
+    for(const enFilm of filmer){
+        ut+="<option>"+ enFilm.film + "</option>";
+    }
+    ut+="</select>";
+    $("#film").html(ut);
+}
+
+
 function validerInput(inputId, feilmeldingId, feilmeldingTekst) {
     const inputElement = document.getElementById(inputId);
     const feilmeldingElement = $("#" + feilmeldingId);
@@ -90,20 +95,18 @@ function validerEmail() {
 
 function registrer(){
         const billett = {
-            film: $("#film").val(),
+            film: $("#valgtFilm").val(),
             antall: $("#antall").val(),
             fornavn: $("#fornavn").val(),
             etternavn: $("#etternavn").val(),
             telefonnummer: $("#telefonnummer").val(),
             email: $("#email").val()}
 
-
-
-        $.post("/lagre", billett, function(){ //function() er hentAlle()-funksjonen
+        $.post("/lagre", billett, function(){
             hentAlle();
         });
 
-        $("#film").val("");
+        $("#valgtFilm").val("");
         $("#antall").val("");
         $("#fornavn").val("");
         $("#etternavn").val("");
@@ -113,7 +116,7 @@ function registrer(){
 }
 
 function hentAlle(){
-    $.get("/hentAlle", function(billett){
+    $.get("/hentAlle", function(billett){ //function() mottar data fra serveren
         formaterData(billett);
     });
 }
