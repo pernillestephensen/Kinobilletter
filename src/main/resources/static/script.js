@@ -125,13 +125,21 @@ function hentAlle(){
 
 function formaterData(billett) {
    let ut = "<table class='table table-striped'><tr><th>Film</th><th>Antall</th><th>Fornavn</th>" +
-        "<th>Etternavn</th><th>Telefon</th><th>E-mail</th></tr>";
+        "<th>Etternavn</th><th>Telefon</th><th>E-mail</th>"+ "<th></th></tr>";
     for (const b of billett) {
         ut += "<tr><td>" + b.film + "</td><td>" + b.antall + "</td><td>" + b.fornavn + "</td>" +
-            "<td>" + b.etternavn + "</td><td>" + b.telefonnummer + "</td><td>" + b.email + "</td></tr>";
+            "<td>" + b.etternavn + "</td><td>" + b.telefonnummer + "</td><td>" + b.email + "</td>" +
+            "<td><button class='btn btn-danger' onclick='slettEnBillett("+billett.id+")'>Slett</button></td></tr>";
     }
     ut += "</table>";
     $("#billetter").html(ut);
+}
+
+function slettEnBillett(id){
+    const url = "/slettEnBillett?id="+id;
+    $.get(url, function (){
+        window.location.href = "/"
+    });
 }
 
 function slett(){

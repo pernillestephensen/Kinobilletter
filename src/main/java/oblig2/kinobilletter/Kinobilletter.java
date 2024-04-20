@@ -1,6 +1,7 @@
 package oblig2.kinobilletter;
 
 public class Kinobilletter {
+        private int id;
         private String film;
         private int antall;
         private String fornavn;
@@ -8,7 +9,7 @@ public class Kinobilletter {
         private String telefonnummer;
         private String email;
 
-        public Kinobilletter(String film, int antall, String fornavn, String etternavn, String telefonnummer, String email) {
+        public Kinobilletter(int id, String film, int antall, String fornavn, String etternavn, String telefonnummer, String email) {
             this.film = film;
             this.antall = antall;
             this.fornavn = fornavn;
@@ -19,6 +20,9 @@ public class Kinobilletter {
 
         public Kinobilletter(){}
 
+        public int getId(){return id;}
+
+        public void setId(int id){ this.id = id;}
 
         public String getFilm() {
             return film;
