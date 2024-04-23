@@ -20,6 +20,10 @@ $(document).ready(function(){
         window.location.href="/index.html"
         }
     );
+
+    window.addEventListener('popstate', function(event) {
+        $("#registrertBillett").empty();
+    });
 });
 
 function hentFilmene(){
@@ -111,8 +115,10 @@ function registrer(){
         telefonnummer: $("#telefonnummer").val(),
         email: $("#email").val()}
 
+    let ut = $("#antall").val() + " billetter for '" + $("#valgtFilm").val() + "' er registrert. " ;
+    $("#registrertBillett").html(ut);
+
     $.post("/lagre", billett, function(){
-        registrertBillett();
     });
 
     $("#valgtFilm").val("");
@@ -121,19 +127,10 @@ function registrer(){
     $("#etternavn").val("");
     $("#telefonnummer").val("");
     $("#email").val("");
+    $("registrertBillett").val("");
 
 }
 
-function registrertBillett(){
-    $.get("/hentAlle", function (billett){
-        console.log(billett);
-        let ut = "";
-        for(const b of billett) {
-            ut += b.antall + " billetter for '" + b.film + "' er registrert." + "<br>"
-        }
-        $("#registrertBillett").html(ut);
-    });
-}
 
 
 
