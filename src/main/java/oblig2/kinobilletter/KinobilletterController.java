@@ -32,6 +32,11 @@ import java.util.List;
             return  rep.hentAlleFilmer();
         }
 
+        @GetMapping("/slettEnBillett")
+        public void slettEnBillett(int id){
+            rep.slettEnBillett(id);
+        }
+
         @GetMapping("/slett")
         public void slett(){
             rep.slettAlle();

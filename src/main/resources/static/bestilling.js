@@ -1,16 +1,25 @@
 $(document).ready(function(){
     hentFilmene();
-$("#kjopBillett").click(function (){
-    validerAntall();
-    validerFornavn();
-    validerEtternavn();
-    validerTelefonnummer();
-    validerEmail();
+    $("#kjopBillett").click(function (){
+        validerAntall();
+        validerFornavn();
+        validerEtternavn();
+        validerTelefonnummer();
+        validerEmail();
 
-    if(validerAntall() && validerFornavn() && validerEtternavn() && validerTelefonnummer() && validerEmail()){
-        registrer();
-    }
-})
+        if(validerAntall() && validerFornavn() && validerEtternavn() && validerTelefonnummer() && validerEmail()){
+            registrer();
+        }
+    })
+
+    $("#seBilletter").click(function (){
+        window.location.href = "/alleBilletter.html"
+    });
+
+    $("#hjem").click(function (){
+        window.location.href="/index.html"
+        }
+    );
 });
 
 function hentFilmene(){
@@ -20,7 +29,7 @@ function hentFilmene(){
 }
 
 function formaterFilmer(filmer){
-    let ut = "<select id='valgtFilm' class='form-control'>";
+    let ut = "<select id='valgtFilm' class='form-select form-select-md mb-3'>";
     for(const enFilm of filmer){
         ut+="<option>"+ enFilm.film + "</option>";
     }
@@ -94,58 +103,37 @@ function validerEmail() {
 }
 
 function registrer(){
-        const billett = {
-            film: $("#valgtFilm").val(),
-            antall: $("#antall").val(),
-            fornavn: $("#fornavn").val(),
-            etternavn: $("#etternavn").val(),
-            telefonnummer: $("#telefonnummer").val(),
-            email: $("#email").val()}
+    const billett = {
+        film: $("#valgtFilm").val(),
+        antall: $("#antall").val(),
+        fornavn: $("#fornavn").val(),
+        etternavn: $("#etternavn").val(),
+        telefonnummer: $("#telefonnummer").val(),
+        email: $("#email").val()}
 
-        $.post("/lagre", billett, function(){
-            hentAlle();
-        });
+    $.post("/lagre", billett, function(){
+        registrertBillett();
+    });
 
-        $("#valgtFilm").val("");
-        $("#antall").val("");
-        $("#fornavn").val("");
-        $("#etternavn").val("");
-        $("#telefonnummer").val("");
-        $("#email").val("");
+    $("#valgtFilm").val("");
+    $("#antall").val("");
+    $("#fornavn").val("");
+    $("#etternavn").val("");
+    $("#telefonnummer").val("");
+    $("#email").val("");
 
 }
 
-function hentAlle(){
-    $.get("/hentAlle", function(billett){ //function() mottar data fra serveren
-        formaterData(billett);
+function registrertBillett(){
+    $.get("/hentAlle", function (billett){
+        console.log(billett);
+        let ut = "";
+        for(const b of billett) {
+            ut += b.antall + " billetter for '" + b.film + "' er registrert." + "<br>"
+        }
+        $("#registrertBillett").html(ut);
     });
 }
 
 
-
-function formaterData(billett) {
-   let ut = "<table class='table table-striped'><tr><th>Film</th><th>Antall</th><th>Fornavn</th>" +
-        "<th>Etternavn</th><th>Telefon</th><th>E-mail</th>"+ "<th></th></tr>";
-    for (const b of billett) {
-        ut += "<tr><td>" + b.film + "</td><td>" + b.antall + "</td><td>" + b.fornavn + "</td>" +
-            "<td>" + b.etternavn + "</td><td>" + b.telefonnummer + "</td><td>" + b.email + "</td>" +
-            "<td><button class='btn btn-danger' onclick='slettEnBillett("+billett.id+")'>Slett</button></td></tr>";
-    }
-    ut += "</table>";
-    $("#billetter").html(ut);
-}
-
-function slettEnBillett(id){
-    const url = "/slettEnBillett?id="+id;
-    $.get(url, function (){
-        window.location.href = "/"
-    });
-}
-
-function slett(){
-    $.get("/slett", function (){
-        hentAlle();
-    });
-
-}
 
