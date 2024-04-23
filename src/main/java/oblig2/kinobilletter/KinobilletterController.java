@@ -32,6 +32,16 @@ import java.util.List;
             return  rep.hentAlleFilmer();
         }
 
+        @GetMapping("/hentEnBillett")
+        public Kinobilletter hentEnBillett(int id){
+            return rep.hentEnBillett(id);
+        }
+
+        @PostMapping("/endreEnBillett")
+        public void endreEnBillett(Kinobilletter billett){
+            rep.endreEnBillett(billett);
+        }
+
         @GetMapping("/slettEnBillett")
         public void slettEnBillett(int id){
             rep.slettEnBillett(id);
